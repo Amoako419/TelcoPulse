@@ -62,7 +62,7 @@ class KinesisCSVWriter:
 def main():
     # Example usage
     stream_name = "telcopulse-stream"  
-    csv_file_path = "Data/mobile-logs.csv"   
+    csv_file_path = "../Data/mobile-logs.csv"   
     
     try:
         writer = KinesisCSVWriter(stream_name)

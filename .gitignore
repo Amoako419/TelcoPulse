@@ -35,6 +35,8 @@ architecture_diagram.drawio
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+*.tfstate
+*.tfstate.backup
 
 # Installer logs
 pip-log.txt
