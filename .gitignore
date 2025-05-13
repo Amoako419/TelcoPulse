@@ -25,12 +25,18 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+architecture_diagram.drawio
+.terraform
+.terraform.lock.hcl
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+*.tfstate
+*.tfstate.backup
 
 # Installer logs
 pip-log.txt
