@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Infrastructure for TelcoPulse - Kinesis Data Stream and S3 Bucket'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: Environment name
+
+  KinesisStreamName:
+    Type: String
+    Default: telcopulse-stream
+    Description: Name of the Kinesis Data Stream
+
+  S3BucketName:
+    Type: String
+    Default: telcopulse-data
+    Description: Name of the S3 bucket for data storage
+
+Resources:
+  # Kinesis Data Stream
+  TelcoPulseStream:
+    Type: AWS::Kinesis::Stream
+    Properties:
+      Name: !Sub ${Environment}-${KinesisStreamName}
+      ShardCount: 1
+      StreamModeDetails:
+        StreamMode: PROVISIONED
+      RetentionPeriodHours: 24
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: TelcoPulse
+
+  # S3 Bucket
+  TelcoPulseBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${Environment}-${S3BucketName}
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: DeleteOldVersions
+            Status: Enabled
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 90
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: TelcoPulse
+
+  # S3 Bucket Policy
+  TelcoPulseBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref TelcoPulseBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: EnforceSSLOnly
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 
+              - !Sub 'arn:aws:s3:::${TelcoPulseBucket}'
+              - !Sub 'arn:aws:s3:::${TelcoPulseBucket}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+Outputs:
+  KinesisStreamName:
+    Description: Name of the Kinesis Data Stream
+    Value: !Ref TelcoPulseStream
+    Export:
+      Name: !Sub ${Environment}-KinesisStreamName
+
+  KinesisStreamARN:
+    Description: ARN of the Kinesis Data Stream
+    Value: !GetAtt TelcoPulseStream.Arn
+    Export:
+      Name: !Sub ${Environment}-KinesisStreamARN
+
+  S3BucketName:
+    Description: Name of the S3 bucket
+    Value: !Ref TelcoPulseBucket
+    Export:
+      Name: !Sub ${Environment}-S3BucketName
+
+  S3BucketARN:
+    Description: ARN of the S3 bucket
+    Value: !GetAtt TelcoPulseBucket.Arn
+    Export:
+      Name: !Sub ${Environment}-S3BucketARN 
