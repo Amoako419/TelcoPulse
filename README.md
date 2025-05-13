@@ -49,7 +49,7 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 1. Network metrics → Kinesis Stream
 2. Kinesis → Glue ETL → S3
 3. S3 → Glue Crawler → Athena
-4. Athena → Streamlit Dashboard
+4. s3 → Streamlit Dashboard
 ---
 
 ![Detailed Level Architecture](assets/images/architecture_diagram-detailed.jpg)
