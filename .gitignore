@@ -26,6 +26,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 architecture_diagram.drawio
+.terraform
+.terraform.lock.hcl
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
