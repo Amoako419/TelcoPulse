@@ -1,4 +1,7 @@
 # TelcoPulse: Real-Time Network Metrics Dashboard
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![AWS](https://img.shields.io/badge/AWS-Powered-orange)](https://aws.amazon.com/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 
 ## 📌 Project Overview
 
@@ -7,6 +10,30 @@
 The project demonstrates end-to-end streaming data pipeline architecture using modern cloud tools and is ideal for showcasing skills in real-time data engineering and analytics.
 
 ---
+
+## 🏗️ High Level Architecture Diagram
+![High Level Architecture](assets/images/high_level_architecture_diagram.jpg)
+## Architecture
+
+### Components
+- **Data Ingestion**: Amazon Kinesis Data Streams
+- **Processing**: AWS Glue Streaming ETL
+- **Storage**: Amazon S3 Data Lake
+- **Query Engine**: AWS Athena
+- **Visualization**: Streamlit on ECS
+- **Infrastructure**: Terraform + CloudFormation
+
+
+---
+
+## Features
+
+- Real-time ingestion of network telemetry data
+- Automated ETL pipeline using AWS Glue
+- Serverless data lake architecture
+- Interactive Streamlit dashboard
+- Auto-scaling container deployment
+- Near real-time KPI monitoring
 
 ## 🔧 Tools & Services Used
 
@@ -18,6 +45,14 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 - **Streamlit + Amazon ECS**: Host and serve a live-updating dashboard.
 
 ---
+### Data Flow
+1. Network metrics → Kinesis Stream
+2. Kinesis → Glue ETL → S3
+3. S3 → Glue Crawler → Athena
+4. Athena → Streamlit Dashboard
+---
+
+![Detailed Level Architecture](assets/images/architecture_diagram-detailed.jpg)
 
 ## 📊 Key Performance Indicators (KPIs)
 
@@ -28,14 +63,6 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 These metrics are updated every 5 minutes and displayed on a dynamic dashboard accessible to management for actionable insights.
 
 ---
-
-## 🏗️ High Level Architecture Diagram
-
-![Architecture Diagram](assets/images/high_level_architecture_diagram.jpg)
-
----
-
-
 
 ## 🚀 Deployment Instructions
 
@@ -124,7 +151,7 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ## 📬 Contact
 
-For questions or contributions, feel free to reach out to the maintainer at [your.email@example.com] or open an issue on GitHub.
+For questions or contributions, feel free to reach out to the maintainer at [ghheskey@gmail.com] or open an issue on GitHub.
 
 ---
 
