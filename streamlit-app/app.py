@@ -26,8 +26,8 @@ def auto_refresh():
     st.rerun()
 
 # Get configuration from environment variables
-bucket_name = os.getenv('S3_BUCKET_NAME')
-prefix = os.getenv('S3_PREFIX', '')
+bucket_name = os.getenv('S3_BUCKET_NAME',"dev-telcopulse-data")
+prefix = os.getenv('S3_PREFIX', "processed-data/ingest_year=2025/ingest_month=05/ingest_day=13/ingest_hour=12/")
 
 if not bucket_name:
     st.error("S3_BUCKET_NAME environment variable is not set!")
@@ -73,17 +73,17 @@ if bucket_name:
                     # Create two columns for visualizations
                     viz_col1, viz_col2 = st.columns(2)
                     
-                    # Scatter plot in first column
+                    # Bar plot in first column
                     with viz_col1:
-                        scatter_fig = px.scatter(df, x=x_col, y=y_col, 
-                                               title=f"Scatter: {y_col} vs {x_col}")
-                        st.plotly_chart(scatter_fig, use_container_width=True)
+                        bar_fig = px.bar(df, x=x_col, y=y_col, 
+                                       title=f"Bar: {y_col} vs {x_col}")
+                        st.plotly_chart(bar_fig, use_container_width=True)
                     
-                    # Box plot in second column
+                    # Line plot in second column 
                     with viz_col2:
-                        box_fig = px.box(df, x=x_col, y=y_col, 
-                                       title=f"Box Plot: {y_col} by {x_col}")
-                        st.plotly_chart(box_fig, use_container_width=True)
+                        line_fig = px.box(df, x=x_col, y=y_col,
+                                         title=f"Box Plot: {y_col} vs {x_col}")
+                        st.plotly_chart(line_fig, use_container_width=True)
                         
                 except Exception as e:
                     st.error(f"Error creating visualization: {str(e)}")
