@@ -10,7 +10,7 @@ load_dotenv()
 
 # Set page config
 st.set_page_config(
-    page_title="S3 Parquet Dashboard",
+    page_title="Dashboard",
     page_icon="📊",
     layout="wide"
 )
@@ -23,19 +23,17 @@ def get_s3_connector():
 # Add auto-refresh functionality
 def auto_refresh():
     time.sleep(300)  # Sleep for 5 minutes
-    st.experimental_rerun()
+    st.rerun()
 
-# Sidebar configuration
-st.sidebar.title("Configuration")
-bucket_name = st.sidebar.text_input("S3 Bucket Name", value=os.getenv('S3_BUCKET_NAME', ''))
-prefix = st.sidebar.text_input("Prefix (optional)", value='')
+# Get configuration from environment variables
+bucket_name = os.getenv('S3_BUCKET_NAME',"dev-telcopulse-data")
+prefix = os.getenv('S3_PREFIX', "processed-data/ingest_year=2025/ingest_month=05/ingest_day=13/ingest_hour=12/")
 
-# Add refresh status in sidebar
-st.sidebar.markdown("---")
-st.sidebar.info("🔄 Auto-refreshing every 5 minutes")
+if not bucket_name:
+    st.error("S3_BUCKET_NAME environment variable is not set!")
 
 # Main content
-st.title("📊 S3 Parquet Data Dashboard")
+st.title("📊 Telcopulse Dashboard")
 
 # Load data
 if bucket_name:
@@ -72,8 +70,21 @@ if bucket_name:
             # Create visualization
             if x_col and y_col:
                 try:
-                    fig = px.scatter(df, x=x_col, y=y_col, title=f"{y_col} vs {x_col}")
-                    st.plotly_chart(fig, use_container_width=True)
+                    # Create two columns for visualizations
+                    viz_col1, viz_col2 = st.columns(2)
+                    
+                    # Bar plot in first column
+                    with viz_col1:
+                        bar_fig = px.bar(df, x=x_col, y=y_col, 
+                                       title=f"Bar: {y_col} vs {x_col}")
+                        st.plotly_chart(bar_fig, use_container_width=True)
+                    
+                    # Line plot in second column 
+                    with viz_col2:
+                        line_fig = px.box(df, x=x_col, y=y_col,
+                                         title=f"Box Plot: {y_col} vs {x_col}")
+                        st.plotly_chart(line_fig, use_container_width=True)
+                        
                 except Exception as e:
                     st.error(f"Error creating visualization: {str(e)}")
             

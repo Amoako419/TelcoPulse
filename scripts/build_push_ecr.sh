@@ -3,9 +3,9 @@
 # === CONFIGURATION ===
 AWS_REGION="eu-west-1"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-ECR_REPO_NAME="crm-logs-ecs"
+ECR_REPO_NAME="telcopulse"
 IMAGE_TAG="latest"
-DOCKERFILE_PATH="$(dirname $0)/../connector"
+DOCKERFILE_PATH="$(dirname $0)/../streamlit-app"
 
 # === SCRIPT START ===
 set -e
