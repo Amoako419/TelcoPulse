@@ -1,7 +1,3 @@
-Certainly! Here's an **organized and structured version of your README**, maintaining all the original content and meaning while improving clarity, readability, and flow.
-
----
-
 # TelcoPulse: Real-Time Network Metrics Dashboard
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
