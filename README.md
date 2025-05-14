@@ -21,7 +21,7 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 - **Storage**: Amazon S3 Data Lake
 - **Query Engine**: AWS Athena
 - **Visualization**: Streamlit on ECS
-- **Infrastructure**: Terraform + CloudFormation
+- **Infrastructure**: Terraform 
 
 
 ---
