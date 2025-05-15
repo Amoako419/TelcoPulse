@@ -22,7 +22,7 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 ## 🏗️ Architecture
 
 ### High-Level Architecture
-![High Level Architecture](assets/images/high_level_architecture_diagram.jpg)
+![High Level Architecture](assets/images/high-evel_architecture_diagram.jpg)
 
 #### Components:
 - **Data Ingestion**: Amazon Kinesis Data Streams  
@@ -39,7 +39,7 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 4. S3 → Streamlit Dashboard  
 
 ### Detailed Architecture
-![Detailed Level Architecture](assets/images/architecture_diagram-detailed.jpg)
+![Detailed Level Architecture](assets/images/detailed_architecture_diagram.jpg)
 
 ---
 
