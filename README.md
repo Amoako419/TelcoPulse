@@ -22,7 +22,7 @@ The project demonstrates end-to-end streaming data pipeline architecture using m
 ## 🏗️ Architecture
 
 ### High-Level Architecture
-![High Level Architecture](assets/images/high-level_architecture_diagram.jpg)
+![High Level Architecture](assets/images/high-evel_architecture_diagram.jpg)
 
 #### Components:
 - **Data Ingestion**: Amazon Kinesis Data Streams  
