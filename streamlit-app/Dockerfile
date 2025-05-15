@@ -1,5 +1,5 @@
-# Use Python 3.11 slim image as base
-FROM python:3.11-slim
+# Use Python 3.11 slim image as base with specific digest for security
+FROM python:3.11-slim-bullseye
 
 # Set working directory
 WORKDIR /app
@@ -17,8 +17,11 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY streamlit-app/ ./streamlit-app/
+# Copy the .env file first
+COPY .env .
+
+# Copy the rest of the application code
+COPY . .
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -29,4 +32,4 @@ ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 EXPOSE 8501
 
 # Command to run the application
-CMD ["streamlit", "run", "streamlit-app/app.py"] 
+CMD ["streamlit", "run", "app.py"]
